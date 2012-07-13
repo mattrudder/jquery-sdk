@@ -275,7 +275,8 @@
           self.pollRetries++;
 
           if (self.pollRetries > self._options.poll404Retries) {
-            document.title = self.documentTitle;
+            if (self.documentTitle)
+              document.title = self.documentTitle;
             self.ended = true;
             self.renderError(assembly);
             self._options.onError(assembly);
@@ -289,7 +290,8 @@
         } else if (assembly.error) {
           self.ended = true;
           self.renderError(assembly);
-          document.title = self.documentTitle;
+          if (self.documentTitle)
+            document.title = self.documentTitle;
           self._options.onError(assembly);
           return;
         }
@@ -324,7 +326,8 @@
 
         if (isCanceled) {
           self.ended = true;
-          document.title = self.documentTitle;
+          if (self.documentTitle)
+            document.title = self.documentTitle;
           self._options.onCancel(assembly);
           return;
         }
@@ -333,7 +336,8 @@
 
         if (isComplete || (!self._options['wait'] && isExecuting)) {
           self.ended = true;
-          document.title = self.documentTitle;
+          if (self.documentTitle)
+            document.title = self.documentTitle;
           assembly.uploads = self.uploads;
           assembly.results = self.results;
           self._options.onSuccess(assembly);
@@ -364,7 +368,8 @@
 
         self.pollRetries++;
         if (self.pollRetries > self._options.pollConnectionRetries) {
-          document.title = self.documentTitle;
+          if (self.documentTitle)
+            document.title = self.documentTitle;
           self.ended = true;
           var err =
             { error: 'CONNECTION_ERROR'
@@ -384,7 +389,8 @@
   };
 
   Uploader.prototype.stop = function() {
-    document.title = this.documentTitle;
+    if (self.documentTitle)
+      document.title = this.documentTitle;
     this.ended = true;
   };
 
